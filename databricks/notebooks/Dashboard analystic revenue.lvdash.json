@@ -1,0 +1,106 @@
+{
+  "datasets": [
+    {
+      "name": "a211a337",
+      "displayName": "daily_revenue_summary",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.gold.daily_revenue_summary",
+        "dimensions": [
+          {
+            "name": "order_id",
+            "expr": "source.order_id",
+            "displayName": "Order Id"
+          },
+          {
+            "name": "purchase_ts",
+            "expr": "source.purchase_ts",
+            "displayName": "Purchase Ts"
+          },
+          {
+            "name": "total_revenue",
+            "expr": "source.total_revenue",
+            "displayName": "Total Revenue"
+          },
+          {
+            "name": "item_count",
+            "expr": "source.item_count",
+            "displayName": "Item Count"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "587fe051",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "cbfbb687",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a211a337",
+                  "fields": [
+                    {
+                      "name": "monthly(purchase_ts)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `purchase_ts`)"
+                    },
+                    {
+                      "name": "sum(total_revenue)",
+                      "expression": "SUM(`total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(purchase_ts)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
