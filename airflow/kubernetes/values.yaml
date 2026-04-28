@@ -1,0 +1,23 @@
+# Định nghĩa executor là KubernetesExecutor để mỗi task là 1 pod
+executor: "KubernetesExecutor"
+
+# Thông tin image từ ECR đã build từ CI/CD
+images:
+  airflow:
+    repository: <your-aws-account-id>.dkr.ecr.ap-southeast-1.amazonaws.com/airflow-custom-image
+    tag: latest
+    pullPolicy: Always
+
+# Cấu hình GitSync (như trong sơ đồ)
+dags:
+  gitSync:
+    enabled: true
+    repo: https://github.com/your-username/your-repo-name.git
+    branch: main
+    subPath: "airflow/dags"
+    wait: 60
+
+# Cấu hình tài nguyên (Vì dùng bản free nên giới hạn thấp để không treo EC2)
+config:
+  AIRFLOW__CORE__PARALLELISM: 4
+  AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: 1

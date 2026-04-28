@@ -1,0 +1,25 @@
+# Python rác
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Biến môi trường (CỰC KỲ QUAN TRỌNG)
+.env
+*.pem
+*.key
+
+# dbt rác
+dbt_packages/
+logs/
+target/
+
+# OS rác
+.DS_Store
+Thumbs.db
+
+# IDE rác
+.vscode/
+.idea/
