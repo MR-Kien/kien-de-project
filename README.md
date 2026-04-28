@@ -1,1 +1,1 @@
-hello
+kubectl get pods -n airflow -w
