@@ -24,5 +24,5 @@ with DAG(
     run_databricks = DatabricksRunNowOperator(
         task_id="run_medallion_job",
         databricks_conn_id="databricks_default",
-        job_id=12345678, # Thay bằng Job ID thực tế của bạn
+        job_id=465299019698616, # Thay bằng Job ID thực tế của bạn
     )
