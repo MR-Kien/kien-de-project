@@ -1,0 +1,29 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # 1. Clone repository nếu chưa có, hoặc pull code mới nhất
+            if [ ! -d "kien-de-project" ]; then
+              git clone https://github.com/MR-Kien/kien-de-project.git
+            fi
+            cd kien-de-project
+            git pull origin main
+            
+            # 2. Cấp quyền thực thi và chạy script
+            chmod +x deploy-ec2.sh
+            bash deploy-ec2.sh
